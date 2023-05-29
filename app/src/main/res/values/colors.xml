@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <!-- <color name="black">#FF000000</color> -->
+    <color name="white_usual_button">#FFFFFFFF</color>
+    <color name="white_hint">#AFAFAF</color>
+    <color name="red_delete_button">#FF0000</color>
+    <color name="gray_toolbar">#5E5E5E</color>
+    <color name="light_gray_toolbar">#777777</color>
+    <color name="gray_background">#474747</color>
+    <color name="gray_item">#5E5E5E</color>
+</resources>

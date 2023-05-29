@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ToDo list</string>
+    <string name="add_button_toolbar">add</string>
+    <string name="delete_button_toolbar">delete</string>
+    <string name="filter_button_toolbar">filter</string>
+    <string name="settings_button_toolbar">settings</string>
+    <string name="text_of_toolbar_1_textView_Title"> ToDo list </string>
+    <string name="activity_2_hint_Title">Title</string>
+    <string name="activity_2_hint_start_typing">Start typing</string>
+    <string name="description_task_item">description</string>
+    <string name="title_task_item">Title</string>
+</resources>
