@@ -11,8 +11,8 @@
         android:outlineSpotShadowColor="#FFFFFF">
 
         <include
-            android:id="@+id/toolbar_1_in_activity_main"
-            layout="@layout/toolbar"
+            android:id="@+id/activity_1_toolBar_1"
+            layout="@layout/activity_4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +20,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/taskRecyclerView"
+        android:id="@+id/activity_1_recyclerView_1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clickable="true"
@@ -28,6 +28,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_1_in_activity_main" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_1_toolBar_1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

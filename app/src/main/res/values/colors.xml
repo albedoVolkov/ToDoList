@@ -8,4 +8,8 @@
     <color name="light_gray_toolbar">#777777</color>
     <color name="gray_background">#474747</color>
     <color name="gray_item">#5E5E5E</color>
+
+ <color name="red1">#FF0000</color>
+ <color name="green1">#44FF00</color>
+ <color name="yellow1">#F8FF00</color>
 </resources>

@@ -3,34 +3,20 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/toolbar_1"
+        android:id="@+id/activity_4_layout_1"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/gray_toolbar"> <!--99999999999-->
 
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/toolbar_1_button_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:src="@drawable/button_add"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/toolbar_1_button_filter"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </androidx.appcompat.widget.AppCompatImageView>
-
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/toolbar_1_button_filter"
+        android:id="@+id/activity_4_view_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:src="@drawable/button_filter_list"
+        android:src="@drawable/button_add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/toolbar_1_button_list"
+        app:layout_constraintEnd_toStartOf="@+id/activity_4_view_2"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -38,7 +24,21 @@
     </androidx.appcompat.widget.AppCompatImageView>
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/toolbar_1_button_list"
+        android:id="@+id/activity_4_view_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:src="@drawable/button_filter_list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/activity_4_view_3"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/activity_4_view_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
@@ -51,7 +51,7 @@
     </androidx.appcompat.widget.AppCompatImageView>
 
         <TextView
-            android:id="@+id/toolbar_1_textView_title"
+            android:id="@+id/activity_4_textView_1"
             android:layout_width="148dp"
             android:layout_height="match_parent"
             android:fontFamily="@font/coming_soon"
@@ -61,7 +61,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/toolbar_1_button_add"
+            app:layout_constraintEnd_toStartOf="@+id/activity_5_view_1"
             app:layout_constraintHorizontal_bias="0.125"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

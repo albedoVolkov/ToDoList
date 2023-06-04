@@ -5,23 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.data.Task
 
 class TaskAdapter(private var tasks: MutableList<Task>) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
-
         class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
-            val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
-            val idTextView : TextView = itemView.findViewById(R.id.idTextView)
-            val deleteView: View = itemView.findViewById(R.id.layout2)
+            val titleTextView: TextView = itemView.findViewById(R.id.activity_2_textView_1)
+            val descriptionTextView: TextView = itemView.findViewById(R.id.activity_2_textView_2)
+            val view : View = itemView.findViewById(R.id.activity_2_layout_1)
+            val warningTextView : TextView = itemView.findViewById(R.id.activity_2_textView_3)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
             val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.task_item, parent, false)
+                .inflate(R.layout.activity_2, parent, false)
             return TaskViewHolder(itemView)
         }
 
@@ -29,38 +29,54 @@ class TaskAdapter(private var tasks: MutableList<Task>) : RecyclerView.Adapter<T
             val task = tasks[position]
             holder.titleTextView.text = task.title
             holder.descriptionTextView.text = task.description
-            holder.idTextView.text = task.id.toString()
-            holder.deleteView.setOnLongClickListener{
-                deleteTask(task)
+
+            if (task.importance == -10592674){
+                holder.warningTextView.visibility = View.INVISIBLE
+            } else {
+                holder.warningTextView.background.setTint(task.importance)
+            }
+
+
+            if (task.enabled) {
+                holder.view.background.alpha = 255
+            }else{
+                holder.view.background.alpha = 130
+            }
+
+            holder.view.setOnLongClickListener{
+                deleteTask(task,position)
                 return@setOnLongClickListener true
+            }
+            holder.view.setOnClickListener{
+                if (task.enabled) {
+                    // disabled
+                    holder.view.background.alpha = 130
+
+                } else {
+                    // enabled
+                    holder.view.background.alpha = 255
+
+                }
+                task.enabled = !task.enabled
             }
         }
 
         override fun getItemCount(): Int { return tasks.size }
 
-
-        fun addTask(task: Task, position: Int) {
-            tasks.add(task)
+        @SuppressLint("NotifyDataSetChanged")
+        fun addTask(task : Task, position: Int) {
             notifyItemInserted(position)
-            refreshData()
+            notifyItemRangeChanged(position, tasks.size)
+            notifyDataSetChanged()
+            tasks.add(task)
         }
 
         @SuppressLint("NotifyDataSetChanged")
-        private fun deleteTask(task: Task) {
+        private fun deleteTask(task : Task, position: Int) {
             tasks.remove(task)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, tasks.size)
             notifyDataSetChanged()
-            refreshData()
-        }
-
-        private fun refreshData() {
-            val tasks2 = ArrayList<Task>()
-            for((count, item) in tasks.withIndex()){
-                item.id = count
-                tasks2.add(item)
-            }
-            tasks.clear()
-            tasks.addAll(tasks2)
-            tasks2.clear()
         }
 
 }

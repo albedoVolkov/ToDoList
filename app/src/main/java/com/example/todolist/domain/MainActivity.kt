@@ -12,8 +12,9 @@ import com.example.todolist.data.Task
 import com.example.todolist.presentation.TaskAdapter
 
 class MainActivity : AppCompatActivity() {
-    private var titleGot: String? = ""
-    private var descriptionGot: String? = ""
+    private var titleGot: String = ""
+    private var descriptionGot: String = ""
+    private var importanceGot: Int = 0
     private lateinit var taskAdapter: TaskAdapter
     private lateinit var recyclerView: RecyclerView
 
@@ -27,18 +28,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun init(list : MutableList<Task>) {
         taskAdapter = TaskAdapter(list)
-        recyclerView = findViewById(R.id.taskRecyclerView)
+        recyclerView = findViewById(R.id.activity_1_recyclerView_1)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = TaskAdapter(tasks = list)
     }
 
     private fun initUI() {
-        findViewById<View>(R.id.toolbar_1_button_add).setOnClickListener {
+        findViewById<View>(R.id.activity_4_view_1).setOnClickListener {
             val myIntent = Intent(this, ForCreatingItemActivity::class.java)
             startActivityForResult(myIntent, 100)
         }
-        findViewById<View>(R.id.toolbar_1_button_list).setOnClickListener { Toast.makeText(this, "settings", Toast.LENGTH_SHORT).show() }
-        findViewById<View>(R.id.toolbar_1_button_filter).setOnClickListener { Toast.makeText(this, "filter", Toast.LENGTH_SHORT).show() }
+        findViewById<View>(R.id.activity_4_view_3).setOnClickListener { Toast.makeText(this, "settings", Toast.LENGTH_SHORT).show() }
+        findViewById<View>(R.id.activity_4_view_2).setOnClickListener { Toast.makeText(this, "filter", Toast.LENGTH_SHORT).show() }
     }
 
     @Deprecated("Deprecated in Java")
@@ -46,12 +47,14 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == 100 && resultCode == RESULT_OK && data != null)
         {
-            titleGot = data.getStringExtra("title")
-            descriptionGot = data.getStringExtra("description")
-            taskAdapter.addTask(Task(taskAdapter.itemCount,title =  titleGot.toString(), enabled = true,description = descriptionGot.toString()),taskAdapter.itemCount)
+            titleGot = data.getStringExtra("title").toString()
+            descriptionGot = data.getStringExtra("description").toString()
+            importanceGot = data.getIntExtra("importance",0)
+            taskAdapter.addTask(Task(View.generateViewId(),
+                title =  titleGot.toString(),
+                description = descriptionGot.toString(),
+                enabled = true, importance = importanceGot.toInt()),taskAdapter.itemCount)
         }
-
     }
-
 }
 
