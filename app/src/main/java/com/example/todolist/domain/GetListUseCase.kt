@@ -5,7 +5,7 @@ import com.example.todolist.data.Task
 class GetListUseCase {
     private var tasks = ArrayList<Task>()
 
-    fun getShopList() : MutableList<Task>{
+    fun getList() : MutableList<Task>{
         return tasks
     }
 }

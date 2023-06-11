@@ -1,11 +1,11 @@
 package com.example.todolist.presentation
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.data.Task
@@ -45,9 +45,11 @@ class TaskAdapter(private var tasks: MutableList<Task>) : RecyclerView.Adapter<T
 
             holder.view.setOnLongClickListener{
                 deleteTask(task,position)
+                Log.d("Log_App","TaskAdapter deletes item")
                 return@setOnLongClickListener true
             }
             holder.view.setOnClickListener{
+                Log.d("Log_App","TaskAdapter changes enable of item")
                 if (task.enabled) {
                     // disabled
                     holder.view.background.alpha = 130
@@ -65,10 +67,16 @@ class TaskAdapter(private var tasks: MutableList<Task>) : RecyclerView.Adapter<T
 
         @SuppressLint("NotifyDataSetChanged")
         fun addTask(task : Task, position: Int) {
+            tasks.add(task)
+            Log.d("Log_App", "addTask - supply")
+            Log.d("Log_App", "        list:")
+            for (item in tasks){
+                Log.d("Log_App", "        $item")
+            }
             notifyItemInserted(position)
             notifyItemRangeChanged(position, tasks.size)
             notifyDataSetChanged()
-            tasks.add(task)
+
         }
 
         @SuppressLint("NotifyDataSetChanged")
@@ -78,5 +86,4 @@ class TaskAdapter(private var tasks: MutableList<Task>) : RecyclerView.Adapter<T
             notifyItemRangeChanged(position, tasks.size)
             notifyDataSetChanged()
         }
-
 }

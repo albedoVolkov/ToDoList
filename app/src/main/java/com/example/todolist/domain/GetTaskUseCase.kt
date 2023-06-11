@@ -6,7 +6,7 @@ class GetTaskUseCase {
 
     fun getTask(TaskId : Int): Task? {
         val list = GetListUseCase()
-        for( item in list.getShopList()){
+        for( item in list.getList()){
             if (item.id == TaskId){
                 return item
             }

@@ -10,14 +10,18 @@
         android:outlineAmbientShadowColor="#FFFFFF"
         android:outlineSpotShadowColor="#FFFFFF">
 
-        <include
-            android:id="@+id/activity_1_toolBar_1"
-            layout="@layout/activity_4"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
+    <include
+        android:id="@+id/activity_1_toolBar_1"
+        layout="@layout/activity_4"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activity_1_recyclerView_1"

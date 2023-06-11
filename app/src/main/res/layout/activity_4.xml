@@ -6,7 +6,7 @@
         android:id="@+id/activity_4_layout_1"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/gray_toolbar"> <!--99999999999-->
+        android:background="@color/gray_toolbar">
 
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -61,7 +61,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/activity_5_view_1"
+            app:layout_constraintEnd_toStartOf="@+id/activity_4_view_1"
             app:layout_constraintHorizontal_bias="0.125"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

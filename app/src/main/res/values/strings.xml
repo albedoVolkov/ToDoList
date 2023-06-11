@@ -9,4 +9,5 @@
     <string name="activity_2_hint_start_typing">Description</string>
     <string name="description_task_item">description</string>
     <string name="title_task_item">Title</string>
+    <string name="required">required</string>
 </resources>

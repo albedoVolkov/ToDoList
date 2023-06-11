@@ -7,4 +7,12 @@ data class Task(
     var description: String = "",
     var enabled: Boolean = true,
     var importance: Int
-    )
+    ){
+    override fun toString(): String {
+        return "Task [id: ${this.id}," +
+                " title: ${this.title}," +
+                " description: ${this.description}," +
+                " enabled: ${this.enabled}," +
+                " importance: ${this.importance}]"
+    }
+}
