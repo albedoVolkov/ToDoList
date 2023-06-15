@@ -58,12 +58,16 @@ class ForCreatingItemActivity : AppCompatActivity() {
                 intent.putExtra("title",title.text.toString())
                 intent.putExtra("description",description.text.toString())
                 intent.putExtra("importance", importance)
+
                 title.setHintTextColor(resources.getColor(R.color.white_hint))
                 title.hint = getString(R.string.activity_2_hint_Title)
+
                 description.setHintTextColor(resources.getColor(R.color.white_hint))
                 description.hint = getString(R.string.description_task_item)
+
                 setResult(RESULT_OK,intent)
                 finish()
+
                 Log.d("Log_App","ForCreatingItem send info")
             }else{
                 if( title.text.toString() == "" ){

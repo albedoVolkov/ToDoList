@@ -11,16 +11,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
-import com.example.todolist.data.Task
+import com.example.todolist.data.ListRepositoryImpl
 import com.example.todolist.presentation.TaskAdapter
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var taskAdapter: TaskAdapter
     private lateinit var recyclerView: RecyclerView
-    private val list = GetListUseCase()
+    private val list = GetListUseCase(ListRepositoryImpl)
     private lateinit var sharedPref : SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,16 +27,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         initUI()
-        init(list.getList())
-        getOldInfo()
+        init()
+        getInfo()
     }
 
     override fun onStop() {
         super.onStop()
         Log.d("Log_App", "onStop called")
-        saveData(list.getList() as ArrayList<Task>)
+        saveData(list.getList())
     }
-    private fun getOldInfo(){
+    private fun getInfo(){
         Log.d("Log_App", "getOldInfo called")
         if ( sharedPref.contains("info_tasks")){
             val savedValue = sharedPref.getString("info_tasks", "")
@@ -45,24 +44,28 @@ class MainActivity : AppCompatActivity() {
                 Log.d("Log_App", "savedValue is empty")
             }else{
                 val itemList = Gson().fromJson(savedValue, Array<Task>::class.java)
-                for(item in itemList.toMutableList()){
+                for(item in itemList.toList()){
                     taskAdapter.addTask(item, taskAdapter.itemCount)
                 }
             }
         }else{
             Log.d("Log_App", "sharedPref is empty")
         }
+
+                val editor = sharedPref.edit()
+                editor.clear()
+                editor.apply()
     }
-    private fun saveData(res : ArrayList<Task>){
+    private fun saveData(res : List<Task>){
         Log.d("Log_App", "saveData called")
         val editor = sharedPref.edit()
-        val info =  Gson().toJson(res).toString()
+        val info = Gson().toJson(res).toString()
         editor.putString("info_tasks", info)
         editor.apply()
     }
 
-    private fun init(list : MutableList<Task>) {
-        taskAdapter = TaskAdapter(list)
+    private fun init() {
+        taskAdapter = TaskAdapter()
         recyclerView = findViewById(R.id.activity_1_recyclerView_1)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = taskAdapter
@@ -73,6 +76,7 @@ class MainActivity : AppCompatActivity() {
             val myIntent = Intent(this, ForCreatingItemActivity::class.java)
             startActivityForResult(myIntent, 100)
         }
+        recyclerView.setOnClickListener{}
         findViewById<View>(R.id.activity_4_view_3).setOnClickListener { Toast.makeText(this, "settings", Toast.LENGTH_SHORT).show() }
         findViewById<View>(R.id.activity_4_view_2).setOnClickListener { Toast.makeText(this, "filter", Toast.LENGTH_SHORT).show() }
     }
@@ -83,13 +87,13 @@ class MainActivity : AppCompatActivity() {
         Log.d("MainActivity", "onActivityResult called")
         if(requestCode == 100 && resultCode == RESULT_OK && data != null)
         {
-            val t = Task(View.generateViewId(),
+            val task = Task(
                 title =  data.getStringExtra("title").toString(),
                 description = data.getStringExtra("description").toString(),
                 enabled = true, importance = data.getIntExtra("importance",0))
-            taskAdapter.addTask(t,taskAdapter.itemCount)
-
-            Log.d("Log_App","MainActivity take info")
+            Log.d("Log_App", "onActivityResult task : $task")
+            taskAdapter.addTask(task,taskAdapter.itemCount)
+            Log.d("Log_App", "MainActivity : onActivityResult : addTask  is successful")
         }
     }
 

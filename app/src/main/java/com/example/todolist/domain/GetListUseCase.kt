@@ -1,11 +1,7 @@
 package com.example.todolist.domain
 
-import com.example.todolist.data.Task
-
-class GetListUseCase {
-    private var tasks = ArrayList<Task>()
-
-    fun getList() : MutableList<Task>{
-        return tasks
+class GetListUseCase(private val listRepository: ListRepository) {
+    fun getList() : List<Task>{
+        return listRepository.getList()
     }
 }
