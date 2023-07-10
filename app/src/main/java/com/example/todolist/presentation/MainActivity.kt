@@ -4,23 +4,18 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolist.data.CacheRepositoryImpl
 import com.example.todolist.data.ListRepositoryImpl
 import com.example.todolist.databinding.ActivityMainBinding
-import com.example.todolist.domain.cache.GetDataUseCase
-import com.example.todolist.domain.cache.SaveDataUseCase
 import com.example.todolist.domain.list.GetCountListUseCase
 import com.example.todolist.domain.list.Status
 import com.example.todolist.domain.list.Task
@@ -47,7 +42,7 @@ class MainActivity : AppCompatActivity(), FromCreatingItemFragmentToActivity,Tas
             viewModel.saveData(viewModel.getList().value!!,sharedPref)
         }
         else{
-            viewModel.saveData(listOf<Task>(), sharedPref)
+            viewModel.saveData(listOf(), sharedPref)
         }
     }
 
@@ -67,13 +62,12 @@ class MainActivity : AppCompatActivity(), FromCreatingItemFragmentToActivity,Tas
         taskAdapter = TaskAdapter(this)
         recyclerView.adapter = taskAdapter
 
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        viewModel.getList().observe(this,object : Observer<List<Task>> {
-            override fun onChanged(list: List<Task>) {
-                taskAdapter.setList(list.toList())
-                Log.d("Log_App", list.toString())
-            }
-        })
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        viewModel.getList().observe(this
+        ) { list ->
+            taskAdapter.setList(list.toList())
+            Log.d("Log_App", list.toString())
+        }
     }
 
 
@@ -157,7 +151,7 @@ class MainActivity : AppCompatActivity(), FromCreatingItemFragmentToActivity,Tas
     }
 
 
-    fun openFrag(fragment : Fragment, id : Int){
+    private fun openFrag(fragment : Fragment, id : Int){
         val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(id,fragment)
         transaction.addToBackStack(null)
@@ -165,7 +159,7 @@ class MainActivity : AppCompatActivity(), FromCreatingItemFragmentToActivity,Tas
     }
 
 
-    override fun communicate(title: String, description: String, ) {
+    override fun communicate(title: String, description: String) {
         viewModel.insert(Task(title,description))
     }
 

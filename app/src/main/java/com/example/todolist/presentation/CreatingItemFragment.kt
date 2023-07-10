@@ -8,9 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.databinding.CreatingItemBinding
-
 
 class CreatingItemFragment : Fragment() {
 
