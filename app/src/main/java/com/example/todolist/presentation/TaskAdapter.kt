@@ -1,91 +1,73 @@
 package com.example.todolist.presentation
 
-import android.annotation.SuppressLint
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
-import com.example.todolist.data.ListRepositoryImpl
-import com.example.todolist.domain.AddTaskUseCase
-import com.example.todolist.domain.DeleteTaskUseCase
-import com.example.todolist.domain.ForCreatingItemActivity
-import com.example.todolist.domain.Task
-import com.example.todolist.domain.GetListUseCase
-import com.example.todolist.domain.MainActivity
+import com.example.todolist.domain.list.Status
+import com.example.todolist.domain.list.Task
+import java.lang.RuntimeException
 
-class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
-        class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val titleTextView: TextView = itemView.findViewById(R.id.activity_2_textView_1)
-            val descriptionTextView: TextView = itemView.findViewById(R.id.activity_2_textView_2)
-            val enabledTextView : TextView = itemView.findViewById(R.id.activity_2_textView_3)
+
+class TaskAdapter(private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+    private var list: List<Task> = listOf()
+    interface ItemClickListener {
+        fun onItemClick(id: Int)
+        fun onLongClick(id: Int, itemView: View)
+    }
+    override fun getItemViewType(position: Int): Int {
+        val item = list[position]
+        return when(item.status){
+            Status.Done -> { 100 }
+            Status.NotDone -> { 200 }
+            Status.Postponed -> { 300 }
         }
+    }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-            val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.activity_2, parent, false)
-            return TaskViewHolder(itemView)
-        }
+    override fun getItemCount(): Int { return list.size }
 
-        override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-            val task = GetListUseCase(listRepository = ListRepositoryImpl).getList()[position]
-            holder.titleTextView.text = task.title
-            holder.descriptionTextView.text = task.description
+    inner class TaskViewHolder(itemView: View, viewType: Int) : RecyclerView.ViewHolder(itemView) {
+        lateinit var titleTextView: TextView
+        lateinit var descriptionTextView: TextView
+        init {
+            when(viewType){
+                100 -> {titleTextView = itemView.findViewById(R.id.item_done_textView_1)
+                descriptionTextView = itemView.findViewById(R.id.item_done_textView_2)}
 
-            if (task.importance == -10592674){
-                holder.enabledTextView.visibility = View.INVISIBLE
-            } else {
-                holder.enabledTextView.background.setTint(task.importance)
+                200 -> {titleTextView = itemView.findViewById(R.id.item_not_done_textView_1)
+                descriptionTextView = itemView.findViewById(R.id.item_not_done_textView_2)}
+
+                300 -> {titleTextView = itemView.findViewById(R.id.item_postponed_textView_1)
+                    descriptionTextView = itemView.findViewById(R.id.item_postponed_textView_2)}
             }
 
-            if (task.enabled) {
-                holder.itemView.background.alpha = 255
-            }else{
-                holder.itemView.background.alpha = 130
-            }
-
-            holder.itemView.setOnLongClickListener{
-                deleteTask(task,position)
-                Log.d("Log_App","TaskAdapter deletes item")
-                return@setOnLongClickListener true
-            }
-            holder.itemView.setOnClickListener{
-                Log.d("Log_App","TaskAdapter changes enable of item")
-                if (task.enabled) {
-                    // disabled
-                    holder.itemView.background.alpha = 130
-
-                } else {
-                    // enabled
-                    holder.itemView.background.alpha = 255
-
-                }
-                task.enabled = !task.enabled
-            }
+            itemView.setOnClickListener { itemClickListener.onItemClick(list[adapterPosition].id) }
+            itemView.setOnLongClickListener{ itemClickListener.onLongClick(list[adapterPosition].id,itemView); return@setOnLongClickListener true }
         }
-        override fun getItemCount(): Int { return GetListUseCase(listRepository = ListRepositoryImpl).getList().size }
+    }
 
-        @SuppressLint("NotifyDataSetChanged")
-        fun addTask(task : Task, position: Int) {
-            Log.d("Log_App", "TaskAdapter : addTask  called")
-            AddTaskUseCase(ListRepositoryImpl).addTask(task)
-            Log.d("Log_App", "TaskAdapter : addTask  is successful\n")
-            Log.d("Log_App", " ")
-            notifyItemInserted(position)
-            notifyItemRangeChanged(position, itemCount)
-            notifyDataSetChanged()
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
+        val itemView = LayoutInflater.from(parent.context)
+        return when(viewType){
+            100 -> {TaskViewHolder(itemView.inflate(R.layout.item_done, parent, false),viewType)}
 
-        @SuppressLint("NotifyDataSetChanged")
-        private fun deleteTask(task : Task, position: Int) {
-            Log.d("Log_App", "deleteTask called")
-            DeleteTaskUseCase(ListRepositoryImpl).deleteTask(task)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, itemCount)
-            notifyDataSetChanged()
+            200 -> {TaskViewHolder(itemView.inflate(R.layout.item_not_done, parent, false),viewType)}
+
+            300 -> {TaskViewHolder(itemView.inflate(R.layout.item_postponed, parent, false),viewType)}
+            else -> {throw RuntimeException("error in onCreateViewHolder")}
         }
+    }
+
+    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
+        val task = list[position]
+        holder.titleTextView.text = task.title
+        holder.descriptionTextView.text = task.description
+    }
+
+    fun setList(listNew : List<Task>){
+        list = listNew
+        notifyDataSetChanged()
+    }
 }

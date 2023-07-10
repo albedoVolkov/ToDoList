@@ -1,13 +1,35 @@
 <resources>
+    <!-- System -->
     <string name="app_name">ToDo list</string>
-    <string name="add_button_toolbar">add</string>
-    <string name="delete_button_toolbar">delete</string>
-    <string name="filter_button_toolbar">filter</string>
-    <string name="settings_button_toolbar">settings</string>
-    <string name="text_of_toolbar_1_textView_Title"> ToDo list </string>
-    <string name="activity_2_hint_Title">Title</string>
-    <string name="activity_2_hint_start_typing">Description</string>
-    <string name="description_task_item">description</string>
-    <string name="title_task_item">Title</string>
+
+    <!-- Toolbar -->
+    <string name="string_button_toolbar_textView_1_add">add</string>
+    <string name="string_button_toolbar_textView_1_filter">filter</string>
+
+    <!-- Menu -->
+    <string name="done">done</string>
+    <string name="not_done">not done</string>
+    <string name="postponed">postponed</string>
+    <string name="delete_all_button_toolbar">delete all</string>
+    <string name="info_button_toolbar">info about us</string>
+    delete_all_button_toolbar
+    <!-- additional items -->
+    <string name="Title">Title</string>
+    <string name="Description">Description</string>
     <string name="required">required</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>

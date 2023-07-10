@@ -1,11 +1,10 @@
-package com.example.todolist.domain
+package com.example.todolist.domain.list
 
 
 data class Task(
     var title: String,
     var description: String,
-    var enabled: Boolean = true,
-    var importance: Int,
+    var status: Status = Status.NotDone,
     var id: Int = UNDEFINED_ID
     ){
     companion object{
@@ -15,7 +14,6 @@ data class Task(
         return "Task [id: ${this.id}," +
                 " title: ${this.title}," +
                 " description: ${this.description}," +
-                " enabled: ${this.enabled}," +
-                " importance: ${this.importance}]"
+                " status: ${this.status}]"
     }
 }

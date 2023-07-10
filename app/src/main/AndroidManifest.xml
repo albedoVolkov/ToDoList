@@ -15,16 +15,16 @@
         android:theme="@style/Theme.ToDoList"
         tools:targetApi="s">
         <activity
-            android:name=".domain.ForCreatingItemActivity"
+            android:name=".presentation.CreatingItemFragment"
             android:exported="false" />
         <activity
-            android:name=".domain.GetTaskUseCase"
+            android:name=".domain.list.GetTaskByIdUseCase"
             android:exported="false" />
         <activity
-            android:name=".domain.GetListUseCase"
+            android:name=".domain.list.GetListUseCase"
             android:exported="false" />
         <activity
-            android:name=".domain.MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

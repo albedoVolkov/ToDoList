@@ -1,8 +1,7 @@
-package com.example.todolist.domain
-
+package com.example.todolist.domain.list
 class EditTaskUseCase(private val listRepository: ListRepository)  {
 
-    fun editTask(task: Task) {
+    fun execute(task: Task) {
         listRepository.editTask(task)
     }
 }

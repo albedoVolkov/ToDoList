@@ -1,15 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <!-- <color name="black">#FF000000</color> -->
-    <color name="white_usual_button">#FFFFFFFF</color>
-    <color name="white_hint">#AFAFAF</color>
-    <color name="red_hint_incorrect">#FF4747</color>
-    <color name="gray_toolbar">#5E5E5E</color>
-    <color name="light_gray_toolbar">#777777</color>
-    <color name="gray_background">#474747</color>
-    <color name="gray_item">#5E5E5E</color>
 
- <color name="red1">#FF0000</color>
- <color name="green1">#44FF00</color>
- <color name="yellow1">#F8FF00</color>
+
+    <!-- ITEM -->
+    <color name="color_text_item_not_done">#DBDBDB</color>
+    <color name="color_text_item_done">#FFFFFFFF</color>
+    <color name="color_text_item_postponed">#909090</color>
+
+    <color name="color_background_item_not_done">#6F6F6F</color>
+    <color name="color_background_item_done">#2AA800</color>
+    <color name="color_background_item_postponed">#595959</color>
+
+    <color name="color_check_mark_item_done">#065600</color>
+
+
+
+
+    <!-- Toolbar -->
+    <color name="color_background_toolbar_layout_1">#464646</color>
+    <color name="color_text_toolbar_views">#AFAFAF</color>
+    <color name="color_text_toolbar_textView_1">#AFAFAF</color>
+
+
+
+    <!--  creating_item -->
+    <color name="color_background_creating_item_layout_5">#272727</color>
+    <color name="color_background_creating_item_layout_4">#4D4D4D</color>
+    <color name="color_text_creating_item_editViews">#B1B1B1</color>
+    <color name="color_incorrect_hint_creating_item_editViews">#FF4747</color>
+    <color name="color_background_creating_item_views">#AFAFAF</color>
+
+
+
+    <!-- MainActivity -->
+    <color name="color_background_activity_main_recyclerView_1">#8F8F8F</color>
+
+
+
 </resources>
