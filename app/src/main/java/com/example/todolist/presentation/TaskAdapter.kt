@@ -14,7 +14,7 @@ import java.lang.RuntimeException
 class TaskAdapter(private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
     private var list: List<Task> = listOf()
     interface ItemClickListener {
-        fun onItemClick(id: Int)
+        fun onItemClick(id: Int, itemView: View)
         fun onLongClick(id: Int, itemView: View)
     }
     override fun getItemViewType(position: Int): Int {
@@ -43,7 +43,7 @@ class TaskAdapter(private val itemClickListener: ItemClickListener) : RecyclerVi
                     descriptionTextView = itemView.findViewById(R.id.item_postponed_textView_2)}
             }
 
-            itemView.setOnClickListener { itemClickListener.onItemClick(list[adapterPosition].id) }
+            itemView.setOnClickListener { itemClickListener.onItemClick(list[adapterPosition].id, itemView) }
             itemView.setOnLongClickListener{ itemClickListener.onLongClick(list[adapterPosition].id,itemView); return@setOnLongClickListener true }
         }
     }

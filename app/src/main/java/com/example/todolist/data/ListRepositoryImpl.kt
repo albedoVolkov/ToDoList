@@ -67,6 +67,7 @@ object ListRepositoryImpl : ListRepository {
 
     override fun setList(listNew: List<Task>) {
         tasks = listNew.toMutableList()
+        updateList()
     }
 
 }

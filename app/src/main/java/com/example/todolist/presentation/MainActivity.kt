@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todolist.R
 import com.example.todolist.data.ListRepositoryImpl
 import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.domain.list.GetCountListUseCase
@@ -76,41 +77,39 @@ class MainActivity : AppCompatActivity(), FromCreatingItemFragmentToActivity,Tas
                 override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) { viewModel.delete(viewModel.getTaskById(viewModel.getList().value!![viewHolder.adapterPosition].id)) }
             }
-
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
-
 
         binding.activityMainToolBar1.toolBarTextView1.setOnClickListener {
             Toast.makeText(this, GetCountListUseCase(ListRepositoryImpl).execute().toString(), Toast.LENGTH_SHORT).show()
         }
 
         binding.activityMainToolBar1.toolBarView1.setOnClickListener {
-            openFrag(CreatingItemFragment(), com.example.todolist.R.id.activity_main_frameLayout_1)
+            openFrag(CreatingItemFragment(), R.id.activity_main_frameLayout_1)
         }
 
         binding.activityMainToolBar1.toolBarView2.setOnClickListener {
             val popup = PopupMenu(this, binding.activityMainToolBar1.toolBarView2)
-            popup.inflate(com.example.todolist.R.menu.popup_menu_toolbar)
+            popup.inflate(R.menu.popup_menu_toolbar)
             popup.show()
             popup.setOnMenuItemClickListener{
                 when (it.itemId){
 
 
-                    com.example.todolist.R.id.popupmenu_toolbar_filter -> {
+                    R.id.popupmenu_toolbar_filter -> {
                         Log.d("Log_App", "filter")
                         Toast.makeText(this, "filter", Toast.LENGTH_SHORT).show()
                     }
 
 
-                    com.example.todolist.R.id.popupmenu_toolbar_delete_all -> {
+                    R.id.popupmenu_toolbar_delete_all -> {
                         Log.d("Log_App", "delete all")
                         Toast.makeText(this, "delete all", Toast.LENGTH_SHORT).show()
                         viewModel.deleteAll()
                     }
 
 
-                    com.example.todolist.R.id.popupmenu_toolbar_info -> {
+                    R.id.popupmenu_toolbar_info -> {
                         Log.d("Log_App", "info about us")
                         Toast.makeText(this, "info about us", Toast.LENGTH_SHORT).show()
                     }
@@ -121,28 +120,36 @@ class MainActivity : AppCompatActivity(), FromCreatingItemFragmentToActivity,Tas
             }
         }
 
+
+
     }
 
 
-    override fun onItemClick(id: Int) {
-
+    override fun onItemClick(id: Int,itemView: View) {
+        val bundle = Bundle()
+        bundle.putString("titleFromMainActivity",viewModel.getTaskById(id).title)
+        bundle.putString("descriptionFromMainActivity",viewModel.getTaskById(id).description)
+        bundle.putString("idFromMainActivity",id.toString())
+        val fragment = CreatingItemFragment()
+        fragment.arguments = bundle
+        openFrag(fragment, R.id.activity_main_frameLayout_1)
     }
 
 
     override fun onLongClick(id: Int,itemView: View) {
         val popup = PopupMenu(this, itemView)
         val task = viewModel.getTaskById(id)
-        popup.inflate(com.example.todolist.R.menu.popup_menu_1)
+        popup.inflate(R.menu.popup_menu_1)
         popup.show()
         popup.setOnMenuItemClickListener{
             when (it.itemId){
-                com.example.todolist.R.id.popupmenu_1_postponed -> {
+                R.id.popupmenu_1_postponed -> {
                     viewModel.changeStatusState(task,Status.Postponed)
                 }
-                com.example.todolist.R.id.popupmenu_1_not_done -> {
+                R.id.popupmenu_1_not_done -> {
                     viewModel.changeStatusState(task,Status.NotDone)
                 }
-                com.example.todolist.R.id.popupmenu_1_done -> {
+                R.id.popupmenu_1_done -> {
                     viewModel.changeStatusState(task,Status.Done)
                 }
             }
@@ -161,6 +168,10 @@ class MainActivity : AppCompatActivity(), FromCreatingItemFragmentToActivity,Tas
 
     override fun communicate(title: String, description: String) {
         viewModel.insert(Task(title,description))
+    }
+
+    override fun communicate(title: String, description: String, idOld: Int) {
+        viewModel.edit(Task(title,description,id = idOld))
     }
 
 

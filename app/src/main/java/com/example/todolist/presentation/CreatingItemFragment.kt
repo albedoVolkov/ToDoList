@@ -10,40 +10,64 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.example.todolist.databinding.CreatingItemBinding
 
+
 class CreatingItemFragment : Fragment() {
 
     private lateinit var binding : CreatingItemBinding
     private val handler = Handler()
     private lateinit var  title: EditText
     private lateinit var  description: EditText
+    private var  titleFromActivity : String? = null
+    private var  descriptionFromActivity : String? = null
+    private var  idFromMainActivity : Int? = null
     override fun onCreateView(
-        inflater : LayoutInflater,container : ViewGroup?,savedInstanceState : Bundle?): View {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
         binding = CreatingItemBinding.inflate(inflater)
+
+        title = binding.creatingItemEditView1
+        description = binding.creatingItemEditView2
+
+
+
+        if (arguments?.getString("idFromMainActivity") != null && arguments?.getString("titleFromMainActivity") != null && arguments?.getString("descriptionFromMainActivity") != null) {
+            titleFromActivity = arguments?.getString("titleFromMainActivity").toString()
+            descriptionFromActivity = arguments?.getString("descriptionFromMainActivity").toString()
+            idFromMainActivity = arguments?.getString("idFromMainActivity").toString().toInt()
+            }
+
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (titleFromActivity != null && descriptionFromActivity != null) {
+            title.setText(titleFromActivity)
+            description.setText(descriptionFromActivity)
+        }
+
             binding.creatingItemButton1.setOnClickListener {
-                Log.d("Log_App", "ForCreatingItem finish")
                 val transaction = activity?.supportFragmentManager?.beginTransaction()
                 transaction?.remove(this)
                 transaction?.commit()
             }//back
 
+
             binding.creatingItemButton2.setOnClickListener {
-
-                title = binding.creatingItemEditView1
-                description = binding.creatingItemEditView2
-
-                if (title.text.toString() != "" && description.text.toString() != "") {//test
-                    Log.d("Log_App", "ForCreatingItem send info")
-
-                    (activity as FromCreatingItemFragmentToActivity).communicate(
-                        title.text.toString(),
-                        description.text.toString()
-                    )// send information
+                if (title.text.toString() != "" && description.text.toString() != "") {
+                    if(idFromMainActivity != null){
+                        (activity as FromCreatingItemFragmentToActivity).communicate(
+                            title.text.toString(),
+                            description.text.toString(),
+                            idFromMainActivity!!
+                        )// send information
+                    }else{
+                        (activity as FromCreatingItemFragmentToActivity).communicate(
+                            title.text.toString(),
+                            description.text.toString()
+                        )// send information
+                    }
 
                     val transaction = activity?.supportFragmentManager?.beginTransaction()
                     transaction?.remove(this)

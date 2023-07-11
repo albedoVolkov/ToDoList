@@ -17,10 +17,10 @@ import com.example.todolist.domain.list.Status
 import com.example.todolist.domain.list.Task
 
 class MainViewModel : ViewModel() {
-//
-//    fun edit(task : Task) {
-//        EditTaskUseCase(listRepository = ListRepositoryImpl).execute(task)
-//    }
+
+    fun edit(task : Task) {
+        EditTaskUseCase(listRepository = ListRepositoryImpl).execute(task)
+    }
 
     fun insert(task : Task) {
         AddTaskUseCase(listRepository = ListRepositoryImpl).execute(task)
