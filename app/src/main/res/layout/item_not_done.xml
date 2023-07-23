@@ -2,23 +2,23 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_not_done_layout_1"
+    android:id="@+id/main_item_not_done"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="20dp"
-    app:cardElevation="1dp"
+    app:cardElevation="5dp"
     app:cardUseCompatPadding="true">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/item_not_done_layout_2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_background_item_not_done"
-        android:minHeight="130dp">
+        android:minHeight="130dp"
+        android:paddingHorizontal="40dp">
 
         <TextView
-            android:id="@+id/item_not_done_textView_2"
+            android:id="@+id/textView_2_item_not_done"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -30,14 +30,14 @@
             android:textColorHint="@color/color_text_item_not_done"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/item_not_done_divider_1"
-            app:layout_constraintStart_toStartOf="@+id/item_not_done_divider_1"
-            app:layout_constraintTop_toBottomOf="@+id/item_not_done_divider_1"
+            app:layout_constraintEnd_toEndOf="@+id/divider_1_item_not_done"
+            app:layout_constraintStart_toStartOf="@+id/divider_1_item_not_done"
+            app:layout_constraintTop_toBottomOf="@+id/divider_1_item_not_done"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/item_not_done_textView_1"
-            android:layout_width="250dp"
+            android:id="@+id/textView_1_item_not_done"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:gravity="start"
@@ -57,15 +57,15 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <View
-            android:id="@+id/item_not_done_divider_1"
+            android:id="@+id/divider_1_item_not_done"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/item_not_done_textView_1"
-            app:layout_constraintStart_toStartOf="@+id/item_not_done_textView_1"
-            app:layout_constraintTop_toBottomOf="@+id/item_not_done_textView_1"
+            app:layout_constraintEnd_toEndOf="@+id/textView_1_item_not_done"
+            app:layout_constraintStart_toStartOf="@+id/textView_1_item_not_done"
+            app:layout_constraintTop_toBottomOf="@+id/textView_1_item_not_done"
             app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

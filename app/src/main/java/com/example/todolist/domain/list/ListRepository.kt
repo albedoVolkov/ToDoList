@@ -1,6 +1,7 @@
 package com.example.todolist.domain.list
 
 import androidx.lifecycle.LiveData
+import com.example.todolist.domain.helpers.Task
 
 interface ListRepository {
 
@@ -14,11 +15,11 @@ interface ListRepository {
 
     fun editTask(task: Task)
 
-    fun getTaskById(TaskId : Int) : Task
+    fun getTaskById(TaskId : Long) : Task
 
     fun getCountList() : Int
 
-    fun setCountId(countNew : Int)
+    fun setCountId(countNew : Long)
 
     fun setList(listNew : List<Task>)
 }

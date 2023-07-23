@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/popupmenu_status_1_done"
+        android:title="@string/item_done" />
+    <item
+        android:id="@+id/popupmenu_status_1_not_done"
+        android:title="@string/item_not_done" />
+    <item
+        android:id="@+id/popupmenu_status_1_postponed"
+        android:title="@string/item_postponed" />
+</menu>

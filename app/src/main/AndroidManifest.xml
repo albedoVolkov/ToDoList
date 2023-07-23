@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <application
         tools:remove="android:appComponentFactory"
         android:allowBackup="true"
@@ -12,19 +12,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/new_icon_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ToDoList"
+        android:theme="@style/Base.Theme.ToDoList"
         tools:targetApi="s">
         <activity
-            android:name=".presentation.CreatingItemFragment"
-            android:exported="false" />
-        <activity
-            android:name=".domain.list.GetTaskByIdUseCase"
-            android:exported="false" />
-        <activity
-            android:name=".domain.list.GetListUseCase"
+            android:name=".presentation.TaskFragment"
             android:exported="false" />
         <activity
             android:name=".presentation.MainActivity"
+            android:theme="@style/Base.Theme.ToDoList"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

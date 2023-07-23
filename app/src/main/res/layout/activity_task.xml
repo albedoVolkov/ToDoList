@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_task_activity"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#99000000"
+    tools:context=".presentation.TaskFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/above_task_activity"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+
+        <include
+            android:id="@+id/toolbar_task_fragment"
+            layout="@layout/toolbar_2"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <View
+            android:id="@+id/centre_task_activity"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_task_activity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_task_fragment" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottom_task_activity"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_task_activity"
+            android:backgroundTint="@color/color_background_creating_item_layout_4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_task_fragment"
+            app:layout_constraintVertical_bias="1.0">
+
+            <EditText
+                android:id="@+id/editView_1_task_activity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:background="@null"
+                android:gravity="center|start"
+                android:hint="@string/Title"
+                android:inputType="textCapSentences|textMultiLine"
+                android:minHeight="50dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textColor="@color/color_text_creating_item_editViews"
+                android:textColorHint="@color/color_text_creating_item_editViews"
+                android:textSize="26sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_1_task_activity"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <EditText
+                android:id="@+id/editView_2_task_activity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:background="@null"
+                android:ems="10"
+                android:fallbackLineSpacing="false"
+                android:gravity="center|start"
+                android:hint="@string/Description"
+                android:inputType="textCapSentences|textMultiLine"
+                android:minHeight="50dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:singleLine="false"
+                android:textColor="@color/color_text_creating_item_editViews"
+                android:textColorHint="@color/color_text_creating_item_editViews"
+                android:textSize="16sp"
+                app:guidelineUseRtl="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/editView_1_task_activity"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/editView_1_task_activity"
+                app:layout_constraintTop_toBottomOf="@+id/editView_1_task_activity"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/button_1_task_activity"
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/color_background_creating_item_button_disabled"
+                android:padding="3dp"
+                android:src="@drawable/arrow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.983"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.786">
+
+            </androidx.appcompat.widget.AppCompatImageView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

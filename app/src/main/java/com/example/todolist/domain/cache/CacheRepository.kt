@@ -1,7 +1,7 @@
 package com.example.todolist.domain.cache
 
 import android.content.SharedPreferences
-import com.example.todolist.domain.list.Task
+import com.example.todolist.domain.helpers.Task
 
 interface CacheRepository {
     fun getData(sharedPref : SharedPreferences)

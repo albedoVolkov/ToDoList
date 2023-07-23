@@ -5,16 +5,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.todolist.data.CacheRepositoryImpl
 import com.example.todolist.data.ListRepositoryImpl
-import com.example.todolist.domain.cache.GetDataUseCase
-import com.example.todolist.domain.cache.SaveDataUseCase
-import com.example.todolist.domain.list.AddTaskUseCase
-import com.example.todolist.domain.list.DeleteAllTasksUseCase
-import com.example.todolist.domain.list.DeleteTaskUseCase
-import com.example.todolist.domain.list.EditTaskUseCase
-import com.example.todolist.domain.list.GetListUseCase
-import com.example.todolist.domain.list.GetTaskByIdUseCase
-import com.example.todolist.domain.list.Status
-import com.example.todolist.domain.list.Task
+import com.example.todolist.domain.cache.useCases.GetDataUseCase
+import com.example.todolist.domain.cache.useCases.SaveDataUseCase
+import com.example.todolist.domain.list.useCases.AddTaskUseCase
+import com.example.todolist.domain.list.useCases.DeleteAllTasksUseCase
+import com.example.todolist.domain.list.useCases.DeleteTaskUseCase
+import com.example.todolist.domain.list.useCases.EditTaskUseCase
+import com.example.todolist.domain.list.useCases.GetListUseCase
+import com.example.todolist.domain.list.useCases.GetTaskByIdUseCase
+import com.example.todolist.domain.helpers.Status
+import com.example.todolist.domain.helpers.Task
 
 class MainViewModel : ViewModel() {
 
@@ -43,7 +43,7 @@ class MainViewModel : ViewModel() {
         return GetListUseCase(listRepository = ListRepositoryImpl).execute()
     }
 
-    fun saveData(list : List<Task> , sharedPref : SharedPreferences) {
+    fun saveData(list : List<Task>, sharedPref : SharedPreferences) {
         SaveDataUseCase(CacheRepositoryImpl).execute(list, sharedPref)
     }
 
@@ -51,7 +51,7 @@ class MainViewModel : ViewModel() {
         GetDataUseCase(CacheRepositoryImpl).execute(sharedPref)
     }
 
-    fun getTaskById(id : Int) : Task {
+    fun getTaskById(id : Long) : Task {
         return GetTaskByIdUseCase(listRepository = ListRepositoryImpl).execute(id)
     }
 

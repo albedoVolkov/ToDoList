@@ -3,38 +3,46 @@
 
 
     <!-- ITEM -->
-    <color name="color_text_item_not_done">#DBDBDB</color>
-    <color name="color_text_item_done">#FFFFFFFF</color>
-    <color name="color_text_item_postponed">#909090</color>
+    <color name="color_text_item_not_done">#070707</color>
+    <color name="color_text_item_done">#FFFFFF</color>
+    <color name="color_text_item_postponed">#383838</color>
 
-    <color name="color_background_item_not_done">#6F6F6F</color>
-    <color name="color_background_item_done">#2AA800</color>
-    <color name="color_background_item_postponed">#595959</color>
+    <color name="color_background_item_not_done">#FFFFFF</color>
+    <color name="color_background_item_done">#35D200</color>
+    <color name="color_background_item_postponed">#CDCDCD</color>
 
-    <color name="color_check_mark_item_done">#065600</color>
-
-
+    <color name="color_check_mark_item_done">#076600</color>
 
 
-    <!-- Toolbar -->
-    <color name="color_background_toolbar_layout_1">#464646</color>
-    <color name="color_text_toolbar_views">#AFAFAF</color>
+
+
+    <!-- Toolbar1 -->
+    <color name="color_background_toolbar_layout_1">#FFFFFF</color>
+    <color name="color_text_toolbar_views">#000000</color>
     <color name="color_text_toolbar_textView_1">#AFAFAF</color>
+    <!-- button toolbar -->
+    <color name="color_button_toolbar_pressed">#E4E4E4</color>
+    <color name="color_button_toolbar_default">#FFFFFF</color>
 
 
 
-    <!--  creating_item -->
-    <color name="color_background_creating_item_layout_5">#272727</color>
-    <color name="color_background_creating_item_layout_4">#4D4D4D</color>
-    <color name="color_text_creating_item_editViews">#B1B1B1</color>
-    <color name="color_incorrect_hint_creating_item_editViews">#FF4747</color>
-    <color name="color_background_creating_item_views">#AFAFAF</color>
+    <!--  TaskActivity -->
+    <color name="color_background_creating_item_layout_4">#E1E1E1</color>
+    <color name="color_text_creating_item_editViews">#353535</color>
+    <color name="color_background_creating_item_button_disabled">#8C9FFF</color>
+    <color name="color_background_creating_item_button_enabled">#3A58F4</color>
 
 
 
     <!-- MainActivity -->
-    <color name="color_background_activity_main_recyclerView_1">#8F8F8F</color>
+    <color name="color_background_activity_main_recyclerView_1">#F4F4F4</color>
 
+    <!--System-->
+    <color name="new_icon_background">#FFFFFF</color>
 
+    <!--Additional-->
+    <color name="red">#FF0000</color>
+    <color name="blue">#002AFF</color>
+    <color name="green">#08FF00</color>
 
 </resources>

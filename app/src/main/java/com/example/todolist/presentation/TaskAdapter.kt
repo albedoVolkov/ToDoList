@@ -6,16 +6,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
-import com.example.todolist.domain.list.Status
-import com.example.todolist.domain.list.Task
+import com.example.todolist.domain.helpers.Status
+import com.example.todolist.domain.helpers.Task
 import java.lang.RuntimeException
 
 
-class TaskAdapter(private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
-    private var list: List<Task> = listOf()
+class TaskAdapter( private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+    private var list = listOf<Task>()
+
     interface ItemClickListener {
-        fun onItemClick(id: Int, itemView: View)
-        fun onLongClick(id: Int, itemView: View)
+        fun onItemClick(id: Long, itemView: View)
+        fun onLongClick(id: Long, itemView: View)
     }
     override fun getItemViewType(position: Int): Int {
         val item = list[position]
@@ -33,18 +34,24 @@ class TaskAdapter(private val itemClickListener: ItemClickListener) : RecyclerVi
         lateinit var descriptionTextView: TextView
         init {
             when(viewType){
-                100 -> {titleTextView = itemView.findViewById(R.id.item_done_textView_1)
-                descriptionTextView = itemView.findViewById(R.id.item_done_textView_2)}
+                100 -> {titleTextView = itemView.findViewById(R.id.textView_1_item_done)
+                descriptionTextView = itemView.findViewById(R.id.textView_2_item_done)}
 
-                200 -> {titleTextView = itemView.findViewById(R.id.item_not_done_textView_1)
-                descriptionTextView = itemView.findViewById(R.id.item_not_done_textView_2)}
+                200 -> {titleTextView = itemView.findViewById(R.id.textView_1_item_not_done)
+                descriptionTextView = itemView.findViewById(R.id.textView_2_item_not_done)}
 
-                300 -> {titleTextView = itemView.findViewById(R.id.item_postponed_textView_1)
-                    descriptionTextView = itemView.findViewById(R.id.item_postponed_textView_2)}
+                300 -> {titleTextView = itemView.findViewById(R.id.textView_1_item_postponed)
+                    descriptionTextView = itemView.findViewById(R.id.textView_2_item_postponed)}
             }
 
             itemView.setOnClickListener { itemClickListener.onItemClick(list[adapterPosition].id, itemView) }
             itemView.setOnLongClickListener{ itemClickListener.onLongClick(list[adapterPosition].id,itemView); return@setOnLongClickListener true }
+        }
+
+
+        fun bind(taskModel: Task) {
+                titleTextView.text = taskModel.title
+                descriptionTextView.text = taskModel.description
         }
     }
 
@@ -61,13 +68,14 @@ class TaskAdapter(private val itemClickListener: ItemClickListener) : RecyclerVi
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        val task = list[position]
-        holder.titleTextView.text = task.title
-        holder.descriptionTextView.text = task.description
+        holder.bind(list[position])
     }
 
     fun setList(listNew : List<Task>){
         list = listNew
         notifyDataSetChanged()
+    }
+    override fun getItemId(position: Int): Long {
+        return list[position].id
     }
 }

@@ -1,14 +1,14 @@
-package com.example.todolist.domain.list
+package com.example.todolist.domain.helpers
 
 
 data class Task(
     var title: String,
     var description: String,
     var status: Status = Status.NotDone,
-    var id: Int = UNDEFINED_ID
+    var id: Long = UNDEFINED_ID
     ){
     companion object{
-       const val UNDEFINED_ID = -1
+       const val UNDEFINED_ID = -1L
     }
     override fun toString(): String {
         return "Task [id: ${this.id}," +

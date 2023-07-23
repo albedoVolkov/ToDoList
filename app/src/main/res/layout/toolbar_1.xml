@@ -2,51 +2,53 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/toolBar_layout_1"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/actionBarSize"
-    android:background="@color/color_background_toolbar_layout_1">
+    android:background="@color/color_background_toolbar_layout_1"
+    android:elevation="10dp">
 
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/toolBar_view_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/view_1_toolbar_1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/toolbar_button_selector"
+        android:elevation="10dp"
         android:padding="10dp"
-        android:src="@drawable/button_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/toolBar_view_2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </androidx.appcompat.widget.AppCompatImageView>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/toolBar_view_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:src="@drawable/button_list"
+        android:src="@drawable/plus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.98"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.72"
+        app:layout_constraintStart_toEndOf="@+id/textView_1_toolbar_1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/view_2_toolbar_1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/toolbar_button_selector"
+        android:elevation="10dp"
+        android:padding="10dp"
+        android:src="@drawable/list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/view_1_toolbar_1"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/toolBar_textView_1"
+        android:id="@+id/textView_1_toolbar_1"
         android:layout_width="148dp"
         android:layout_height="match_parent"
+        android:elevation="10dp"
         android:fontFamily="@font/coming_soon"
         android:gravity="center"
         android:text="@string/app_name"
-        android:textColor="@color/color_text_toolbar_textView_1"
+        android:textColor="@color/color_text_toolbar_views"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/toolBar_view_1"
-        app:layout_constraintHorizontal_bias="0.125"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />

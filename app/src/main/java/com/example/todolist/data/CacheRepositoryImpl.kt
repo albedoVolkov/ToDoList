@@ -3,10 +3,10 @@ package com.example.todolist.data
 import android.content.SharedPreferences
 import android.util.Log
 import com.example.todolist.domain.cache.CacheRepository
-import com.example.todolist.domain.list.GetCountListUseCase
-import com.example.todolist.domain.list.SetCountIdUseCase
-import com.example.todolist.domain.list.SetListUseCase
-import com.example.todolist.domain.list.Task
+import com.example.todolist.domain.list.useCases.GetCountListUseCase
+import com.example.todolist.domain.list.useCases.SetCountIdUseCase
+import com.example.todolist.domain.list.useCases.SetListUseCase
+import com.example.todolist.domain.helpers.Task
 import com.google.gson.Gson
 
 object CacheRepositoryImpl : CacheRepository {
@@ -15,7 +15,7 @@ object CacheRepositoryImpl : CacheRepository {
 
         //setting additional info
         val savedValueCountId = sharedPref.getString("countId", "0")
-        SetCountIdUseCase(ListRepositoryImpl).execute(savedValueCountId!!.toInt())
+        SetCountIdUseCase(ListRepositoryImpl).execute(savedValueCountId!!.toLong())
         //setting list info
         if ( sharedPref.contains("info_tasks")){
             val savedValueInfoTasks = sharedPref.getString("info_tasks", "")

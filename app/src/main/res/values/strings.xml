@@ -1,17 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- System -->
     <string name="app_name">ToDo list</string>
 
     <!-- Toolbar -->
-    <string name="string_button_toolbar_textView_1_add">add</string>
-    <string name="string_button_toolbar_textView_1_filter">filter</string>
+    <string name="button_toolbar_add">add</string>
+    <string name="button_toolbar_filter">filter</string>
+    <string name="button_toolbar_back">back</string>
 
     <!-- Menu -->
-    <string name="done">done</string>
-    <string name="not_done">not done</string>
-    <string name="postponed">postponed</string>
-    <string name="delete_all_button_toolbar">delete all</string>
-    <string name="info_button_toolbar">info about us</string>
+    <string name="item_done">done</string>
+    <string name="item_not_done">not done</string>
+    <string name="item_postponed">postponed</string>
+    <string name="button_toolbar_delete_all">delete all</string>
+    <string name="button_toolbar_info">info about us</string>
     delete_all_button_toolbar
     <!-- additional items -->
     <string name="Title">Title</string>

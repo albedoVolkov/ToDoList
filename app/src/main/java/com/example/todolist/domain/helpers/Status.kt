@@ -1,4 +1,4 @@
-package com.example.todolist.domain.list
+package com.example.todolist.domain.helpers
 
 enum class Status() {
     Done(),

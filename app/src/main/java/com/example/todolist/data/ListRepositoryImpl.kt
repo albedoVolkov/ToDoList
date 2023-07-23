@@ -3,15 +3,15 @@ package com.example.todolist.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.todolist.domain.list.Task.Companion.UNDEFINED_ID
+import com.example.todolist.domain.helpers.Task.Companion.UNDEFINED_ID
 import com.example.todolist.domain.list.ListRepository
-import com.example.todolist.domain.list.Task
+import com.example.todolist.domain.helpers.Task
 
 object ListRepositoryImpl : ListRepository {
 
     private var tasksLD = MutableLiveData<List<Task>>()
     private var tasks = mutableListOf<Task>()
-    private var counterId = 0
+    private var counterId = 0L
     override fun getList(): LiveData<List<Task>> {
         return tasksLD
     }
@@ -45,7 +45,7 @@ object ListRepositoryImpl : ListRepository {
         addTask(task)
     }
 
-    override fun getTaskById(TaskId: Int): Task {
+    override fun getTaskById(TaskId: Long): Task {
         Log.d("Log_App", "\tListRepositoryImpl : getTaskById called")
         for( item in tasks){
             if (item.id == TaskId){
@@ -55,13 +55,13 @@ object ListRepositoryImpl : ListRepository {
         throw RuntimeException("Element with id $TaskId not found")
     }
     private fun updateList() {
-        val lengthComparator = Comparator { task: Task, task2: Task -> task.id - task2.id }
+        val lengthComparator = Comparator { task: Task, task2: Task -> (task.id - task2.id).toInt() }
         tasksLD.value = tasks.sortedWith(lengthComparator).toList()
     }
     override fun getCountList() : Int{
         return tasks.size
     }
-    override fun setCountId(countNew : Int){
+    override fun setCountId(countNew : Long){
         counterId = countNew
     }
 
