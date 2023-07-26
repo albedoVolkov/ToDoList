@@ -11,7 +11,6 @@ import com.google.gson.Gson
 
 object CacheRepositoryImpl : CacheRepository {
     override fun getData(sharedPref : SharedPreferences){
-        Log.d("Log_App", "CacheData : getData called")
 
         //setting additional info
         val savedValueCountId = sharedPref.getString("countId", "0")
@@ -20,13 +19,14 @@ object CacheRepositoryImpl : CacheRepository {
         if ( sharedPref.contains("info_tasks")){
             val savedValueInfoTasks = sharedPref.getString("info_tasks", "")
             if (savedValueInfoTasks == ""){
-                Log.d("Log_App", "CacheData : getData : sharedPref : savedValue is empty")
+                Log.d("Log_App", "sharedPref info_tasks is empty")
             }else{
                 val listTasks = Gson().fromJson(savedValueInfoTasks, Array<Task>::class.java)
                 SetListUseCase(ListRepositoryImpl).execute(listTasks.toList())
+                Log.d("Log_App", "sharedPref info_tasks contains $listTasks")
             }
         }else{
-            Log.d("Log_App","CacheData : getData : sharedPref doesn't contain info_tasks")
+            Log.d("Log_App","sharedPref doesn't contain info_tasks")
         }
 
         //cleaning
@@ -36,7 +36,7 @@ object CacheRepositoryImpl : CacheRepository {
     }
 
     override fun saveData(res : List<Task>, sharedPref : SharedPreferences){
-        Log.d("Log_App", "CacheData : saveData called")
+        Log.d("Log_App", "CacheData saves $res")
         val editor = sharedPref.edit()
         val data = Gson().toJson(res).toString()
         editor.putString("info_tasks", data)

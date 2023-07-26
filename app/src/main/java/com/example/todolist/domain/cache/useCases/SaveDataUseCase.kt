@@ -7,7 +7,7 @@ import com.example.todolist.domain.helpers.Task
 
 class SaveDataUseCase(private val cacheRepository: CacheRepository) {
     fun execute(res : List<Task>, sharedPref : SharedPreferences) {
-        Log.d("Log_App", "SaveDataUseCase : execute  called with this item: \n $res")
+        Log.d("Log_App", "SaveDataUseCase : save this list \n $res")
         cacheRepository.saveData(res, sharedPref)
     }
 }

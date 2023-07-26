@@ -14,16 +14,26 @@
         android:layout_height="fill_parent">
 
 
-        <include
-            android:id="@+id/toolbar_task_fragment"
-            layout="@layout/toolbar_2"
+        <RelativeLayout
+            android:id="@+id/container_task_fragment"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0">
+
+            <include
+                android:id="@+id/toolbar_task_fragment"
+                layout="@layout/toolbar_2"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </RelativeLayout>
 
         <View
             android:id="@+id/centre_task_activity"
@@ -32,24 +42,25 @@
             app:layout_constraintBottom_toTopOf="@+id/bottom_task_activity"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_task_fragment" />
+            app:layout_constraintTop_toBottomOf="@+id/container_task_fragment" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottom_task_activity"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bottom_task_activity"
-            android:backgroundTint="@color/color_background_creating_item_layout_4"
+            android:backgroundTint="@color/color_background_layout_4_task_activity"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_task_fragment"
+            app:layout_constraintTop_toBottomOf="@+id/container_task_fragment"
             app:layout_constraintVertical_bias="1.0">
 
             <EditText
                 android:id="@+id/editView_1_task_activity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:accessibilityHeading="false"
                 android:autofillHints=""
                 android:background="@null"
                 android:gravity="center|start"
@@ -58,8 +69,8 @@
                 android:minHeight="50dp"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
-                android:textColor="@color/color_text_creating_item_editViews"
-                android:textColorHint="@color/color_text_creating_item_editViews"
+                android:textColor="@color/color_text_editViews_task_activity"
+                android:textColorHint="@color/color_text_editViews_task_activity"
                 android:textSize="26sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/button_1_task_activity"
@@ -83,8 +94,8 @@
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:singleLine="false"
-                android:textColor="@color/color_text_creating_item_editViews"
-                android:textColorHint="@color/color_text_creating_item_editViews"
+                android:textColor="@color/color_text_editViews_task_activity"
+                android:textColorHint="@color/color_text_editViews_task_activity"
                 android:textSize="16sp"
                 app:guidelineUseRtl="false"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -99,7 +110,7 @@
                 android:layout_width="40dp"
                 android:layout_height="25dp"
                 android:background="@drawable/circle"
-                android:backgroundTint="@color/color_background_creating_item_button_disabled"
+                android:backgroundTint="@color/color_background_button_disabled_task_activity"
                 android:padding="3dp"
                 android:src="@drawable/arrow"
                 app:layout_constraintBottom_toBottomOf="parent"

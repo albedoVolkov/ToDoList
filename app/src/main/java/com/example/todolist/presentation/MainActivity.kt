@@ -1,7 +1,8 @@
 package com.example.todolist.presentation
 
+import android.app.Activity
 import android.content.Context
-import android.opengl.Visibility
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -9,6 +10,7 @@ import android.view.View
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
@@ -30,15 +32,36 @@ class MainActivity : AppCompatActivity(), FromTaskActivityToMainActivity,TaskAda
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("Log_App", "onCreate")
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         init()
+        viewModel.getData(getSharedPreferences("MyPrefs", Context.MODE_PRIVATE))
         initSwipe()
         initUI()
     }
+    override fun onStart() {
+        super.onStart()
+        Log.d("Log_App", "onStart")
+    }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d("Log_App", "onResume")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d("Log_App", "onRestart")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("Log_App", "onPause")
+    }
     override fun onStop() {
         super.onStop()
+        Log.d("Log_App", "onStop")
         if (viewModel.getList().value != null){
             viewModel.saveData(viewModel.getList().value!!,getSharedPreferences("MyPrefs", Context.MODE_PRIVATE))
         }
@@ -47,11 +70,10 @@ class MainActivity : AppCompatActivity(), FromTaskActivityToMainActivity,TaskAda
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.getData(getSharedPreferences("MyPrefs", Context.MODE_PRIVATE))
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("Log_App", "onDestroy")
     }
-
 
     private fun initSwipe() {
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
@@ -70,19 +92,11 @@ class MainActivity : AppCompatActivity(), FromTaskActivityToMainActivity,TaskAda
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.getList().observe(this
-          ) {
-            list ->
+          ) { list ->
             taskAdapter.setList(list.toList())
-            Log.d("Log_App", list.toString())
+            Log.d("Log_App", "showing list now = $list.toString()")
         }
     }
-
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(com.example.todolist.R.menu.popup_menu_toolbar_1,menu)
-        return true
-    }
-
     private fun initUI() {
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }
@@ -96,7 +110,6 @@ class MainActivity : AppCompatActivity(), FromTaskActivityToMainActivity,TaskAda
         }
 
         binding.toolBarActivityMain.view1Toolbar1.setOnClickListener {
-            binding.toolBarActivityMain.root.visibility = View.INVISIBLE
             openFrag(TaskFragment(), R.id.frameLayout_main_activity)
         }
 
@@ -131,13 +144,11 @@ class MainActivity : AppCompatActivity(), FromTaskActivityToMainActivity,TaskAda
 
 
     override fun onItemClick(id: Long,itemView: View) {
-        val bundle = Bundle()
-        bundle.putString("titleFromMainActivity",viewModel.getTaskById(id).title)
-        bundle.putString("descriptionFromMainActivity",viewModel.getTaskById(id).description)
-        bundle.putString("idFromMainActivity",id.toString())
-        val fragment = TaskFragment()
-        fragment.arguments = bundle
-        openFrag(fragment, com.example.todolist.R.id.frameLayout_main_activity)
+        val intent = Intent(this@MainActivity, TaskViewActivity::class.java)
+        intent.putExtra("titleFromMainActivity", viewModel.getTaskById(id).title)
+        intent.putExtra("descriptionFromMainActivity", viewModel.getTaskById(id).description)
+        intent.putExtra("idFromMainActivity", id)
+        startActivityForResult(intent,1)
     }
 
 
@@ -170,21 +181,23 @@ class MainActivity : AppCompatActivity(), FromTaskActivityToMainActivity,TaskAda
         transaction.commit()
     }
 
-
     override fun communicate(title: String, description: String) {
         binding.toolBarActivityMain.root.visibility = View.VISIBLE
         viewModel.insert(Task(title,description))
     }
 
-    override fun communicate(title: String, description: String, idOld: Long) {
-        binding.toolBarActivityMain.root.visibility = View.VISIBLE
-        viewModel.edit(Task(title,description,id = idOld))
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                val titleNew = data!!.getStringExtra("titleFromTaskViewActivity")
+                val descriptionNew = data.getStringExtra("descriptionFromTaskViewActivity")
+                val idOld = data.getLongExtra("idFromTaskViewActivity", -1)
+                viewModel.edit(Task(titleNew!!,descriptionNew!!,id = idOld))
+            }
+        }
     }
-
-    override fun communicate() {
-        binding.toolBarActivityMain.root.visibility = View.VISIBLE
-    }
-
 
 }
 

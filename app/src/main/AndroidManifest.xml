@@ -15,6 +15,9 @@
         android:theme="@style/Base.Theme.ToDoList"
         tools:targetApi="s">
         <activity
+            android:name=".presentation.TaskViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.TaskFragment"
             android:exported="false" />
         <activity

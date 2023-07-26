@@ -23,75 +23,53 @@ class TaskFragment : Fragment() {
 
     private lateinit var binding : ActivityTaskBinding
     private lateinit var keyboard : InputMethodManager
-    private var  titleFromActivity : String? = null
-    private var  descriptionFromActivity : String? = null
-    private var  idFromMainActivity : Long? = null
+    private var title : String? = null
+    private var description : String? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View {
 
         binding = ActivityTaskBinding.inflate(inflater, container, false)
         keyboard = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
         openKeyboard()
-        //val activity = requireActivity() as AppCompatActivity
-        //activity.setSupportActionBar(binding.root.findViewById(R.id.toolbar_task_fragment))
-
-        if (arguments?.getString("idFromMainActivity") != null &&
-            arguments?.getString("titleFromMainActivity") != null &&
-            arguments?.getString("descriptionFromMainActivity") != null) {
-            titleFromActivity = arguments?.getString("titleFromMainActivity").toString()
-            descriptionFromActivity = arguments?.getString("descriptionFromMainActivity").toString()
-            idFromMainActivity = arguments?.getString("idFromMainActivity").toString().toLong()
-            }
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(!this::binding.isInitialized) {
-            throw Exception("Binding isn't initialised TaskFragment")
-        }
+        if(!this::binding.isInitialized) { throw Exception("Binding isn't initialised TaskFragment") }
 
-        if (binding.editView1TaskActivity.text.toString() != "") {
+        if (binding.editView1TaskActivity.text.toString() != "" && binding.editView2TaskActivity.text.toString() != "") {
             markButtonEnabled(binding.button1TaskActivity)
-        } else { markButtonDisable(binding.button1TaskActivity) }
+        } else {
+            markButtonDisable(binding.button1TaskActivity) }
 
-        if (titleFromActivity != null && descriptionFromActivity != null) {
-            binding.editView1TaskActivity.setText(titleFromActivity)
-            binding.editView2TaskActivity.setText(descriptionFromActivity)
+        binding.editView1TaskActivity.afterTextChanged{
+            if (binding.editView1TaskActivity.text.toString() != "" && binding.editView2TaskActivity.text.toString() != "")
+            { markButtonEnabled(binding.button1TaskActivity)
+            } else {
+                markButtonDisable(binding.button1TaskActivity) }
         }
 
-        binding.editView2TaskActivity.afterTextChanged {
-            if (binding.editView2TaskActivity.text.toString() != "")
+        binding.editView2TaskActivity.afterTextChanged{
+            if (binding.editView1TaskActivity.text.toString() != "" && binding.editView2TaskActivity.text.toString() != "")
             { markButtonEnabled(binding.button1TaskActivity)
-            } else { markButtonDisable(binding.button1TaskActivity) }
+            } else {
+                markButtonDisable(binding.button1TaskActivity) }
         }
 
         binding.centreTaskActivity.setOnClickListener {
-            (activity as FromTaskActivityToMainActivity).communicate()
             closeFragment() }//close fragment without result
 
         binding.toolbarTaskFragment.view1Toolbar2.setOnClickListener {
-            (activity as FromTaskActivityToMainActivity).communicate()
             closeFragment() }//close fragment without result
 
-
         binding.button1TaskActivity.setOnClickListener {
-            if(idFromMainActivity != null){
-                (activity as FromTaskActivityToMainActivity)
-                    .communicate(
-                        binding.editView2TaskActivity.text.toString(),
-                        binding.editView1TaskActivity.text.toString(),
-                        idFromMainActivity!!)// send information
-            }else{
-                (activity as FromTaskActivityToMainActivity)
-                    .communicate(
-                        binding.editView1TaskActivity.text.toString(),
-                        binding.editView2TaskActivity.text.toString())// send information
-            }
+            (activity as FromTaskActivityToMainActivity)
+                .communicate(
+                    title = binding.editView1TaskActivity.text.toString(),
+                    description = binding.editView2TaskActivity.text.toString())// send information
             closeFragment()
         }
     }
@@ -112,11 +90,11 @@ class TaskFragment : Fragment() {
     }
     private fun markButtonDisable(view: View) {
         view.isEnabled = false
-        view.background.setTint(ContextCompat.getColor(view.context, R.color.color_background_creating_item_button_disabled))
+        view.background.setTint(ContextCompat.getColor(view.context, R.color.color_background_button_disabled_task_activity))
     }
     private fun markButtonEnabled(view: View) {
         view.isEnabled = true
-        view.background.setTint(ContextCompat.getColor(view.context, R.color.color_background_creating_item_button_enabled))
+        view.background.setTint(ContextCompat.getColor(view.context, R.color.color_background_button_enabled_task_activity))
     }
     private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
         this.addTextChangedListener(object : TextWatcher {

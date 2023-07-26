@@ -16,7 +16,7 @@ object ListRepositoryImpl : ListRepository {
         return tasksLD
     }
     override fun addTask(task: Task) {
-        Log.d("Log_App", "\tListRepositoryImpl : addTask called with this item:\n\t $task")
+        Log.d("Log_App", "\t addTask() add \n\t $task")
         if (task.id == UNDEFINED_ID){
             task.id = counterId
             counterId++
@@ -26,27 +26,23 @@ object ListRepositoryImpl : ListRepository {
     }
 
     override fun deleteTask(task: Task) {
-        Log.d("Log_App", "\tListRepositoryImpl : deleteTask called with this item:\n" +
-                "\t $task")
+        Log.d("Log_App", "\t deleteTask() delete \n\t $task")
         tasks.remove(task)
         updateList()
     }
 
     override fun deleteAllTasks() {
-        Log.d("Log_App", "\tListRepositoryImpl : deleteAllTasks called ")
         tasks.clear()
         updateList()
     }
 
     override fun editTask(task: Task) {
-        Log.d("Log_App", "\tListRepositoryImpl : editTask called")
         val taskOld = getTaskById(task.id)
         deleteTask(taskOld)
         addTask(task)
     }
 
     override fun getTaskById(TaskId: Long): Task {
-        Log.d("Log_App", "\tListRepositoryImpl : getTaskById called")
         for( item in tasks){
             if (item.id == TaskId){
                 return item
@@ -57,6 +53,7 @@ object ListRepositoryImpl : ListRepository {
     private fun updateList() {
         val lengthComparator = Comparator { task: Task, task2: Task -> (task.id - task2.id).toInt() }
         tasksLD.value = tasks.sortedWith(lengthComparator).toList()
+        Log.d("Log_App", "\t updateList() save this "+ getList().value.toString())
     }
     override fun getCountList() : Int{
         return tasks.size

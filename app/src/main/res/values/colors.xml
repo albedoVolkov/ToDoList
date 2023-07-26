@@ -27,11 +27,19 @@
 
 
     <!--  TaskActivity -->
-    <color name="color_background_creating_item_layout_4">#E1E1E1</color>
-    <color name="color_text_creating_item_editViews">#353535</color>
-    <color name="color_background_creating_item_button_disabled">#8C9FFF</color>
-    <color name="color_background_creating_item_button_enabled">#3A58F4</color>
+    <color name="color_background_layout_4_task_activity">#E1E1E1</color>
+    <color name="color_text_editViews_task_activity">#353535</color>
+    <color name="color_background_button_disabled_task_activity">#8C9FFF</color>
+    <color name="color_background_button_enabled_task_activity">#3A58F4</color>
 
+
+    <!--  TaskViewActivity -->
+    <color name="color_background_layout_4_task_view_activity">#E1E1E1</color>
+    <color name="color_text_editViews_task_view_activity">#353535</color>
+    <color name="color_background_button_disabled_task_view_activity">#8C9FFF</color>
+    <color name="color_background_button_enabled_task_view_activity">#3A58F4</color>
+    <color name="color_background_button_pressed_task_view_activity">#506DFF</color>
+    <color name="color_background_button_not_pressed_task_view_activity">#3A58F4</color>
 
 
     <!-- MainActivity -->

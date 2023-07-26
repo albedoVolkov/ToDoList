@@ -9,15 +9,20 @@
     android:outlineAmbientShadowColor="#FFFFFF"
     android:outlineSpotShadowColor="#FFFFFF">
 
-    <include
-        android:id="@+id/toolBar_activity_main"
-        layout="@layout/toolbar_1"
+    <RelativeLayout
+        android:id="@+id/container_main_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0">
+
+        <include
+            android:id="@+id/toolBar_activity_main"
+            layout="@layout/toolbar_1" />
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_main_activity"
@@ -28,11 +33,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolBar_activity_main"
+        app:layout_constraintTop_toBottomOf="@+id/container_main_activity"
         tools:itemCount="3"
         tools:listitem="@layout/item_not_done" />
 
-<!--    "@+id/toolbar_main_activity"-->
 
     <FrameLayout
         android:id="@+id/frameLayout_main_activity"

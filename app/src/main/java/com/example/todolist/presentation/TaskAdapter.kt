@@ -30,18 +30,15 @@ class TaskAdapter( private val itemClickListener: ItemClickListener) : RecyclerV
     override fun getItemCount(): Int { return list.size }
 
     inner class TaskViewHolder(itemView: View, viewType: Int) : RecyclerView.ViewHolder(itemView) {
-        lateinit var titleTextView: TextView
-        lateinit var descriptionTextView: TextView
+        private lateinit var titleTextView: TextView
+        //private lateinit var descriptionTextView: TextView
         init {
             when(viewType){
-                100 -> {titleTextView = itemView.findViewById(R.id.textView_1_item_done)
-                descriptionTextView = itemView.findViewById(R.id.textView_2_item_done)}
+                100 -> {titleTextView = itemView.findViewById(R.id.textView_1_item_done)}
 
-                200 -> {titleTextView = itemView.findViewById(R.id.textView_1_item_not_done)
-                descriptionTextView = itemView.findViewById(R.id.textView_2_item_not_done)}
+                200 -> {titleTextView = itemView.findViewById(R.id.textView_1_item_not_done)}
 
-                300 -> {titleTextView = itemView.findViewById(R.id.textView_1_item_postponed)
-                    descriptionTextView = itemView.findViewById(R.id.textView_2_item_postponed)}
+                300 -> {titleTextView = itemView.findViewById(R.id.textView_1_item_postponed)}
             }
 
             itemView.setOnClickListener { itemClickListener.onItemClick(list[adapterPosition].id, itemView) }
@@ -51,7 +48,6 @@ class TaskAdapter( private val itemClickListener: ItemClickListener) : RecyclerV
 
         fun bind(taskModel: Task) {
                 titleTextView.text = taskModel.title
-                descriptionTextView.text = taskModel.description
         }
     }
 
