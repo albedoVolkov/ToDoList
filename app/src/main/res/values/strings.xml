@@ -2,19 +2,25 @@
 <resources>
     <!-- System -->
     <string name="app_name">ToDo list</string>
+    <string name="author_name">BB Team</string>
 
     <!-- Toolbar -->
     <string name="button_toolbar_add">add</string>
     <string name="button_toolbar_filter">filter</string>
     <string name="button_toolbar_back">back</string>
+    <string name="button_toolbar_delete_all">delete all</string>
+    <string name="button_toolbar_hide_completed">hide completed</string>
 
     <!-- Menu -->
-    <string name="item_done">done</string>
-    <string name="item_not_done">not done</string>
+    <string name="item_completed">completed</string>
+    <string name="item_not_completed">not completed</string>
     <string name="item_postponed">postponed</string>
-    <string name="button_toolbar_delete_all">delete all</string>
-    <string name="button_toolbar_info">info about us</string>
-    delete_all_button_toolbar
+
+    <!-- info activity -->
+    <string name="info_title">Info about App</string>
+<!--    <string name="Description">Description</string>-->
+<!--    <string name="required">required</string>-->
+
     <!-- additional items -->
     <string name="Title">Title</string>
     <string name="Description">Description</string>

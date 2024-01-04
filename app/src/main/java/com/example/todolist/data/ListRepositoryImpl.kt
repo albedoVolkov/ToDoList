@@ -3,6 +3,7 @@ package com.example.todolist.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.todolist.domain.helpers.Status
 import com.example.todolist.domain.helpers.Task.Companion.UNDEFINED_ID
 import com.example.todolist.domain.list.ListRepository
 import com.example.todolist.domain.helpers.Task
@@ -12,8 +13,9 @@ object ListRepositoryImpl : ListRepository {
     private var tasksLD = MutableLiveData<List<Task>>()
     private var tasks = mutableListOf<Task>()
     private var counterId = 0L
+    private var hideCompleted = false
     override fun getList(): LiveData<List<Task>> {
-        return tasksLD
+            return tasksLD
     }
     override fun addTask(task: Task) {
         Log.d("Log_App", "\t addTask() add \n\t $task")

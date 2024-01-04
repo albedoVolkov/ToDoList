@@ -3,15 +3,15 @@
 
 
     <!-- ITEM -->
-    <color name="color_text_item_not_done">#070707</color>
-    <color name="color_text_item_done">#FFFFFF</color>
+    <color name="color_text_item_not_completed">#070707</color>
+    <color name="color_text_item_completed">#FFFFFF</color>
     <color name="color_text_item_postponed">#383838</color>
 
-    <color name="color_background_item_not_done">#FFFFFF</color>
-    <color name="color_background_item_done">#35D200</color>
+    <color name="color_background_item_not_completed">#FFFFFF</color>
+    <color name="color_background_item_completed">#35D200</color>
     <color name="color_background_item_postponed">#CDCDCD</color>
 
-    <color name="color_check_mark_item_done">#076600</color>
+    <color name="color_check_mark_item_completed">#076600</color>
 
 
 

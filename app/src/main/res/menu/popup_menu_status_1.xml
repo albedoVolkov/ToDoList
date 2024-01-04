@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/popupmenu_status_1_done"
-        android:title="@string/item_done" />
+        android:id="@+id/popupmenu_status_1_completed"
+        android:title="@string/item_completed" />
     <item
-        android:id="@+id/popupmenu_status_1_not_done"
-        android:title="@string/item_not_done" />
+        android:id="@+id/popupmenu_status_1_not_completed"
+        android:title="@string/item_not_completed" />
     <item
         android:id="@+id/popupmenu_status_1_postponed"
         android:title="@string/item_postponed" />

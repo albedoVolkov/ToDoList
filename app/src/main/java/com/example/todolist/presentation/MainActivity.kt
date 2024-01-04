@@ -10,7 +10,8 @@ import android.view.View
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
@@ -25,10 +26,12 @@ import com.example.todolist.domain.helpers.Task
 import com.example.todolist.domain.list.useCases.GetCountListUseCase
 
 
-class MainActivity : AppCompatActivity(), FromTaskActivityToMainActivity,TaskAdapter.ItemClickListener {
+class MainActivity : AppCompatActivity(), FromTaskActivityToMainActivity,
+    TaskAdapter.ItemClickListener {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
+    private lateinit var taskAdapter : TaskAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,28 +39,9 @@ class MainActivity : AppCompatActivity(), FromTaskActivityToMainActivity,TaskAda
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         init()
-        viewModel.getData(getSharedPreferences("MyPrefs", Context.MODE_PRIVATE))
         initSwipe()
         initUI()
-    }
-    override fun onStart() {
-        super.onStart()
-        Log.d("Log_App", "onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("Log_App", "onResume")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        Log.d("Log_App", "onRestart")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("Log_App", "onPause")
+        viewModel.getData(getSharedPreferences("MyPrefs", Context.MODE_PRIVATE))
     }
     override fun onStop() {
         super.onStop()
@@ -70,10 +54,9 @@ class MainActivity : AppCompatActivity(), FromTaskActivityToMainActivity,TaskAda
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("Log_App", "onDestroy")
-    }
+
+
+
 
     private fun initSwipe() {
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
@@ -84,8 +67,11 @@ class MainActivity : AppCompatActivity(), FromTaskActivityToMainActivity,TaskAda
         itemTouchHelper.attachToRecyclerView(binding.recyclerViewMainActivity)
     }
 
+
+
+
     private fun init() {
-        val taskAdapter = TaskAdapter(this)
+        taskAdapter = TaskAdapter(this)
         binding.recyclerViewMainActivity.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewMainActivity.setHasFixedSize(true)
         binding.recyclerViewMainActivity.adapter = taskAdapter
@@ -97,7 +83,15 @@ class MainActivity : AppCompatActivity(), FromTaskActivityToMainActivity,TaskAda
             Log.d("Log_App", "showing list now = $list.toString()")
         }
     }
+
+
+
+
     private fun initUI() {
+
+        var q = false
+        var q2 = false
+
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return false }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) { viewModel.delete(viewModel.getTaskById(viewModel.getList().value!![viewHolder.adapterPosition].id)) }
@@ -110,7 +104,10 @@ class MainActivity : AppCompatActivity(), FromTaskActivityToMainActivity,TaskAda
         }
 
         binding.toolBarActivityMain.view1Toolbar1.setOnClickListener {
-            openFrag(TaskFragment(), R.id.frameLayout_main_activity)
+            val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.frameLayout_main_activity, TaskFragment())
+            transaction.addToBackStack(null)
+            transaction.commit()
         }
 
         binding.toolBarActivityMain.view2Toolbar1.setOnClickListener {
@@ -121,25 +118,36 @@ class MainActivity : AppCompatActivity(), FromTaskActivityToMainActivity,TaskAda
                 when (it.itemId){
 
                     R.id.popupmenu_toolbar_1_filter -> {
-                        Log.d("Log_App", "filter")
-                        Toast.makeText(this, "filter", Toast.LENGTH_SHORT).show()
+                        q2 = !q2
+                        if(q2){
+                            popup.menu.findItem(R.id.popupmenu_toolbar_1_filter).icon = AppCompatResources.getDrawable(applicationContext,R.drawable.arrow_up)
+                        }else{
+                            popup.menu.findItem(R.id.popupmenu_toolbar_1_filter).icon = AppCompatResources.getDrawable(applicationContext,R.drawable.arrow_down)
+                        }
+                        Toast.makeText(this, ""+q2, Toast.LENGTH_SHORT).show()
                     }
 
                     R.id.popupmenu_toolbar_1_delete_all -> {
-                        Log.d("Log_App", "delete all")
-                        Toast.makeText(this, "delete all", Toast.LENGTH_SHORT).show()
                         viewModel.deleteAll()
                     }
 
-                    R.id.popupmenu_toolbar_1_info -> {
-                        Log.d("Log_App", "info about us")
-                        Toast.makeText(this, "info about us", Toast.LENGTH_SHORT).show()
+                    R.id.popupmenu_toolbar_1_hide_completed_items -> {
+                        q = !q
+                        taskAdapter.setStatusHideCompleted(q)
+                        refresh()
+                        Toast.makeText(this, ""+q, Toast.LENGTH_SHORT).show()
                     }
                 }
                 true
             }
         }
 
+    }
+
+
+
+    fun refresh(){
+        taskAdapter.setList(viewModel.getList().value!!.toList())
     }
 
 
@@ -152,6 +160,9 @@ class MainActivity : AppCompatActivity(), FromTaskActivityToMainActivity,TaskAda
     }
 
 
+
+
+
     override fun onLongClick(id: Long,itemView: View) {
         val popup = PopupMenu(this, itemView)
         val task = viewModel.getTaskById(id)
@@ -162,11 +173,11 @@ class MainActivity : AppCompatActivity(), FromTaskActivityToMainActivity,TaskAda
                 com.example.todolist.R.id.popupmenu_status_1_postponed -> {
                     viewModel.changeStatusState(task, Status.Postponed)
                 }
-                com.example.todolist.R.id.popupmenu_status_1_not_done -> {
-                    viewModel.changeStatusState(task, Status.NotDone)
+                com.example.todolist.R.id.popupmenu_status_1_not_completed -> {
+                    viewModel.changeStatusState(task, Status.NotCompleted)
                 }
-                com.example.todolist.R.id.popupmenu_status_1_done -> {
-                    viewModel.changeStatusState(task, Status.Done)
+                com.example.todolist.R.id.popupmenu_status_1_completed -> {
+                    viewModel.changeStatusState(task, Status.Completed)
                 }
             }
             true
@@ -174,17 +185,16 @@ class MainActivity : AppCompatActivity(), FromTaskActivityToMainActivity,TaskAda
     }
 
 
-    private fun openFrag(fragment : Fragment, id : Int){
-        val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(id,fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
-    }
+
+
+
 
     override fun communicate(title: String, description: String) {
         binding.toolBarActivityMain.root.visibility = View.VISIBLE
         viewModel.insert(Task(title,description))
     }
+
+
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -23,8 +23,6 @@ class TaskFragment : Fragment() {
 
     private lateinit var binding : ActivityTaskBinding
     private lateinit var keyboard : InputMethodManager
-    private var title : String? = null
-    private var description : String? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View {
@@ -40,21 +38,24 @@ class TaskFragment : Fragment() {
 
         if(!this::binding.isInitialized) { throw Exception("Binding isn't initialised TaskFragment") }
 
-        if (binding.editView1TaskActivity.text.toString() != "" && binding.editView2TaskActivity.text.toString() != "") {
-            markButtonEnabled(binding.button1TaskActivity)
-        } else {
-            markButtonDisable(binding.button1TaskActivity) }
+            if (binding.editView1TaskActivity.text.toString() != "" && binding.editView2TaskActivity.text.toString() != "")
+            {
+                markButtonEnabled(binding.button1TaskActivity)
+            } else {
+                markButtonDisable(binding.button1TaskActivity) }
 
         binding.editView1TaskActivity.afterTextChanged{
             if (binding.editView1TaskActivity.text.toString() != "" && binding.editView2TaskActivity.text.toString() != "")
-            { markButtonEnabled(binding.button1TaskActivity)
+            {
+                markButtonEnabled(binding.button1TaskActivity)
             } else {
                 markButtonDisable(binding.button1TaskActivity) }
         }
 
         binding.editView2TaskActivity.afterTextChanged{
             if (binding.editView1TaskActivity.text.toString() != "" && binding.editView2TaskActivity.text.toString() != "")
-            { markButtonEnabled(binding.button1TaskActivity)
+            {
+                markButtonEnabled(binding.button1TaskActivity)
             } else {
                 markButtonDisable(binding.button1TaskActivity) }
         }

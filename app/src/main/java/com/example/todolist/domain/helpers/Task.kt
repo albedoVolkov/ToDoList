@@ -4,7 +4,7 @@ package com.example.todolist.domain.helpers
 data class Task(
     var title: String,
     var description: String,
-    var status: Status = Status.NotDone,
+    var status: Status = Status.NotCompleted,
     var id: Long = UNDEFINED_ID
     ){
     companion object{

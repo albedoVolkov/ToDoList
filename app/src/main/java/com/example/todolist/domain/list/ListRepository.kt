@@ -22,4 +22,6 @@ interface ListRepository {
     fun setCountId(countNew : Long)
 
     fun setList(listNew : List<Task>)
+
+
 }

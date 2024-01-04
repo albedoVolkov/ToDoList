@@ -17,7 +17,7 @@
         android:minHeight="70dp">
 
         <TextView
-            android:id="@+id/textView_3_item_done3"
+            android:id="@+id/textView_2_item_postponed"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:background="@drawable/point"

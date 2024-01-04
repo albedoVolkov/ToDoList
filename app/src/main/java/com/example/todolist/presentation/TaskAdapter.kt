@@ -13,16 +13,18 @@ import java.lang.RuntimeException
 
 class TaskAdapter( private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
     private var list = listOf<Task>()
+    private var hideCompleted = false
 
     interface ItemClickListener {
         fun onItemClick(id: Long, itemView: View)
         fun onLongClick(id: Long, itemView: View)
     }
+
     override fun getItemViewType(position: Int): Int {
         val item = list[position]
         return when(item.status){
-            Status.Done -> { 100 }
-            Status.NotDone -> { 200 }
+            Status.Completed -> {100}
+            Status.NotCompleted -> { 200 }
             Status.Postponed -> { 300 }
         }
     }
@@ -31,12 +33,11 @@ class TaskAdapter( private val itemClickListener: ItemClickListener) : RecyclerV
 
     inner class TaskViewHolder(itemView: View, viewType: Int) : RecyclerView.ViewHolder(itemView) {
         private lateinit var titleTextView: TextView
-        //private lateinit var descriptionTextView: TextView
         init {
             when(viewType){
-                100 -> {titleTextView = itemView.findViewById(R.id.textView_1_item_done)}
+                100 -> {titleTextView = itemView.findViewById(R.id.textView_1_item_completed)}
 
-                200 -> {titleTextView = itemView.findViewById(R.id.textView_1_item_not_done)}
+                200 -> {titleTextView = itemView.findViewById(R.id.textView_1_item_not_completed)}
 
                 300 -> {titleTextView = itemView.findViewById(R.id.textView_1_item_postponed)}
             }
@@ -47,18 +48,19 @@ class TaskAdapter( private val itemClickListener: ItemClickListener) : RecyclerV
 
 
         fun bind(taskModel: Task) {
-                titleTextView.text = taskModel.title
+            titleTextView.text = taskModel.title
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val itemView = LayoutInflater.from(parent.context)
         return when(viewType){
-            100 -> {TaskViewHolder(itemView.inflate(R.layout.item_done, parent, false),viewType)}
+            100 -> {TaskViewHolder(itemView.inflate(R.layout.item_completed, parent, false),viewType)}
 
-            200 -> {TaskViewHolder(itemView.inflate(R.layout.item_not_done, parent, false),viewType)}
+            200 -> {TaskViewHolder(itemView.inflate(R.layout.item_not_completed, parent, false),viewType)}
 
             300 -> {TaskViewHolder(itemView.inflate(R.layout.item_postponed, parent, false),viewType)}
+
             else -> {throw RuntimeException("error in onCreateViewHolder")}
         }
     }
@@ -68,10 +70,25 @@ class TaskAdapter( private val itemClickListener: ItemClickListener) : RecyclerV
     }
 
     fun setList(listNew : List<Task>){
-        list = listNew
-        notifyDataSetChanged()
+        if(hideCompleted){
+            val listWithoutCompletedItems = mutableListOf<Task>()
+                for (item in listNew) {
+                    if (item.status != Status.Completed) {
+                        listWithoutCompletedItems.add(item)
+                    }
+                }
+            list = listWithoutCompletedItems
+            notifyDataSetChanged()
+        }else{
+            list = listNew
+            notifyDataSetChanged()
+        }
     }
     override fun getItemId(position: Int): Long {
         return list[position].id
+    }
+
+    fun setStatusHideCompleted(bool : Boolean){
+        hideCompleted = bool
     }
 }

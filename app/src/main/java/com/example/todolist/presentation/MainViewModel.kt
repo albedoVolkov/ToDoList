@@ -55,5 +55,4 @@ class MainViewModel : ViewModel() {
         return GetTaskByIdUseCase(listRepository = ListRepositoryImpl).execute(id)
     }
 
-
 }

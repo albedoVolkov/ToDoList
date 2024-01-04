@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_item_done"
+    android:id="@+id/main_item_not_completed"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="20dp"
@@ -13,11 +13,22 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_background_item_done"
+        android:background="@color/color_background_item_not_completed"
         android:minHeight="70dp">
 
         <TextView
-            android:id="@+id/textView_1_item_done"
+            android:id="@+id/textView_2_item_not_completed"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/point"
+            android:backgroundTint="#949494"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView_1_item_not_completed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_1_item_not_completed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="50dp"
@@ -28,25 +39,14 @@
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="@color/color_text_item_done"
-            android:textColorHint="@color/color_text_item_done"
+            android:textColor="@color/color_text_item_not_completed"
+            android:textColorHint="@color/color_text_item_not_completed"
             android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.3" />
-
-        <TextView
-            android:id="@+id/textView_3_item_done"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:background="@drawable/mark"
-            android:backgroundTint="@color/color_check_mark_item_done"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView_1_item_done"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
